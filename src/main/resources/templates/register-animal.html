@@ -20,12 +20,13 @@
 
             <div class="form-group row mb-3">
                 <div class="col col-lg-6 col-md-6 col-sm-12 col-12">
-                    <label for="animalTypeSelect" class="col-form-label-lg">Ващият любимец е...</label>
+                    <label for="animalTypeSelect" class="col-form-label-lg">Ващият любимец е...<span class="text-danger">*</span></label>
                     <select name="type"
                             id="animalTypeSelect"
                             class="form-control form-control-lg"
                             th:errorclass="is-invalid"
-                            th:field="*{type}">
+                            th:field="*{type}"
+                            required>
 
                         <option value="" class="dropdown-header p-2">Моля, изберете</option>
                         <option
@@ -39,18 +40,18 @@
 
 
                 <div class="mb-3 col col-lg-6 col-md-6 col-sm-12 col-12">
-                    <label for="animalGenderSelect" class="col-form-label-lg">Мъжко или женско е то?</label>
+                    <label for="animalGenderSelect" class="col-form-label-lg">Мъжко или женско е то?<span class="text-danger">*</span></label>
                     <select class="form-control form-control-lg"
                             id="animalGenderSelect" name="gender"
                             th:errorclass="is-invalid"
-                            th:field="*{gender}">
+                            th:field="*{gender}"
+                            required>
 
                         <option value="" class="dropdown-header p-2">Моля, изберете</option>
                         <option
                                 th:each="g : ${genders}"
                                 th:value="${g}"
                                 th:text="${g.displayLabel}">
-
                         </option>
                     </select>
                     <div id="animalGenderSelectFeedback" class="invalid-feedback" th:errors="*{gender}"></div>
@@ -59,14 +60,15 @@
 
 
             <div class="mb-3 form-group row">
-                <label for="animalNameInput" class="col-form-label-lg">Как се казва?</label>
+                <label for="animalNameInput" class="col-form-label-lg">Как се казва?<span class="text-danger">*</span></label>
                 <input type="text"
                        name="name"
                        class="form-control form-control-lg"
                        id="animalNameInput"
                        placeholder="Име"
                        th:errorclass="is-invalid"
-                       th:value="*{name}">
+                       th:value="*{name}"
+                       required>
                 <div class="invalid-feedback" id="animalNameInputFeedback" th:errors="*{name}"></div>
 
                 <label for="animalBreedInput" class="col-form-label-lg">Каква порода е?</label>
@@ -79,10 +81,12 @@
             </div>
 
             <div class="mb-3 col col-lg-6 col-md-6 col-sm-12 col-12" id="pet-hotel-dog-size-select">
-                <label for="dogSizeSelect" class="col-form-label-lg">Какъв размере е?</label>
+                <label for="dogSizeSelect" class="col-form-label-lg">Какъв размере е?<span class="text-danger">*</span></label>
                 <select name="size"
                         id="dogSizeSelect"
-                        class="form-control form-select-lg">
+                        class="form-control form-select-lg"
+                        th:errorclass="is-invalid"
+                        th:value="*{size}">
 
                     <option value="" class="dropdown-header p-2">Моля, изберете</option>
                     <option
@@ -92,19 +96,19 @@
 
                     </option>
                 </select>
-                <div class="text-danger" th:if="${noSizeSelected}">Моля, изберете размер</div>
             </div>
 
 
-            <div class="mb-3 form-check row">
-                <legend class="col-form-label-lg">Кастрирано ли е?</legend>
+            <div class="mb-3 form-check row form-control" id="pet-hotel-castrated-field-form">
+                <legend class="col-form-label-lg">Кастрирано ли е?<span class="text-danger">*</span></legend>
                 <div class="form-check">
                     <label class="form-check-label" for="castratedInputTrue">Да</label>
                     <input class="form-check-input"
                            type="radio"
                            name="castrated"
                            id="castratedInputTrue"
-                           value="true">
+                           value="true"
+                           required>
                 </div>
 
                 <div class="form-check">
@@ -113,8 +117,10 @@
                            type="radio"
                            name="castrated"
                            id="castratedInputFalse"
-                           value="false">
+                           value="false"
+                           required>
                 </div>
+                <div class="invalid-feedback" th:errors="*{castrated}"></div>
             </div>
 
 
@@ -126,9 +132,8 @@
                        name="image">
             </div>
 
-
             <div class="float-end">
-                <button type="submit" class="btn btn-primary btn-lg">Регистрирай</button>
+                <button type="submit" class="btn btn-primary btn-lg" id="animalRegistrationButton">Регистрирай</button>
             </div>
 
 

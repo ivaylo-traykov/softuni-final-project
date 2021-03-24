@@ -53,6 +53,10 @@ public class AnimalController {
                                  RedirectAttributes redirectAttributes,
                                  @AuthenticationPrincipal UserDetails principal) throws IOException {
 
+        if (animalRegisterBindingModel.getType() == AnimalTypeEnum.DOG && animalRegisterBindingModel.getSize() == null) {
+            bindingResult.rejectValue("size", "Моля, посочете размера на кучето");
+        }
+
         if (bindingResult.hasErrors()) {
             redirectAttributes.addFlashAttribute("animal", animalRegisterBindingModel);
             redirectAttributes.addFlashAttribute("org.springframework.validation.BindingResult.animal", bindingResult);

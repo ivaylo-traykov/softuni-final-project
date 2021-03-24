@@ -11,17 +11,17 @@
 
 <main th:object="${user}">
     <div class="container d-flex flex-wrap justify-content-around align-items-center">
-        <div class=" pet-hotel-profile-picture">
+        <div class="m-1 pet-hotel-profile-picture">
             <img th:src="*{getImageUrl()}" alt="" class="img-thumbnail"/>
         </div>
 
-        <div>
+        <div class="m-1">
             <p th:text="|Име: *{firstName}|"></p>
             <p th:text="|Фамилия: *{lastName}|"></p>
             <p th:text="|email адрес: *{email}|"></p>
         </div>
 
-        <ul class="list-group">
+        <ul class="list-group m-1">
             <li class="list-group-item"><a th:href="@{/animals/register}" class="text-decoration-none">Регистрирай домашен любимец</a></li>
             <li class="list-group-item"><a th:href="@{#}" class="text-decoration-none">Редактирай профила си</a></li>
         </ul>

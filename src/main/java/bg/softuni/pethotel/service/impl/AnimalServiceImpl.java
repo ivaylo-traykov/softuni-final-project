@@ -50,6 +50,10 @@ public class AnimalServiceImpl implements AnimalService {
                 throw new IllegalStateException("Unexpected value: " + animal.getType());
         }
 
+        if (animal.getBreed().isEmpty()) {
+            pet.setBreed("Няма");
+        }
+
         if (!animal.getImage().isEmpty()) {
             MultipartFile img = animal.getImage();
             String imageUrl = cloudinaryService.uploadImage(img);
