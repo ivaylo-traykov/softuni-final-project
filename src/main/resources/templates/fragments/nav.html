@@ -1,0 +1,33 @@
+<th:block xmlns:th="http://www.thymeleaf.org"
+          xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+
+    <nav class="navbar navbar-expand-lg navbar-light bg-light pet-hotel-custom-font-family">
+        <div class="container-fluid">
+            <a class="navbar-brand pet-hotel-logo" th:href="@{/}"><img src="/images/logo.png" alt="Logo - pet hotel"/>
+                <p>КОСМАТКОВЦИ</p></a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup"
+                    aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+                <div class="navbar-nav">
+                    <th:block sec:authorize="!isAuthenticated()">
+                        <a class="nav-link" th:href="@{/users/login}">Вход</a>
+                        <a class="nav-link" th:href="@{/users/register}">Регистрация</a>
+                    </th:block>
+
+                    <a class="nav-link" th:href="@{#}">Галерия</a>
+
+                    <th:block sec:authorize="isAuthenticated()">
+                        <a class="nav-link" th:href="@{#}">Нова резервация</a>
+                        <a class="nav-link" th:href="@{#}">Направени резервации</a>
+                        <a class="nav-link" th:href="@{/profile}">Профил</a>
+                        <a class="nav-link" th:href="@{#}">Какво мислиш за нас?</a>
+                        <form th:action="@{/users/logout}" method="POST"><button type="submit" class="nav-link border-0 bg-light">Изход</button></form>
+                    </th:block>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+</th:block>

@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <th:block th:include="~{fragments/head}"/>
+    <title>Хотел за домашни любимци - Косматковци</title>
+</head>
+<body>
+<header>
+    <th:block th:include="~{fragments/nav}"/>
+</header>
+
+
+<div class="container-fluid text-center col-lg-4 col-md-8 col-sm-10 pet-hotel-custom-font-family">
+
+    <h1>Вход</h1>
+    <h5>Моля въведете информацията за вход в системата</h5>
+
+    <p class="text-danger my-3" th:if="${bad_credentials}">Грешен имейл адрес или парола</p>
+
+    <form th:action="@{/users/login}" method="POST" class="pet-hotel-login-form">
+        <div class="form-floating mb-3">
+            <input type="email"
+                   name="email"
+                   class="form-control"
+                   id="floatingInput"
+                   placeholder="name@example.com"
+                   th:value="${email}">
+            <label for="floatingInput">Електрона поща</label>
+        </div>
+
+        <div class="form-floating mb-3">
+            <input type="password"
+                   name="password"
+                   class="form-control"
+                   id="floatingPassword"
+                   placeholder="Парола">
+            <label for="floatingPassword">Парола</label>
+        </div>
+
+        <div class="mb-4 float-end">
+            <button type="submit" class="btn btn-primary btn-lg">Вход</button>
+        </div>
+
+    </form>
+    <div class="clearfix"></div>
+</div>
+<th:block th:include="~{fragments/footer}"/>
+</body>
+</html>

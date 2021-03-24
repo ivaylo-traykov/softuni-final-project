@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <th:block th:include="~{fragments/head}"/>
+    <title>Хотел за домашни любимци - Косматковци</title>
+</head>
+<body>
+<header>
+    <th:block th:include="~{fragments/nav}"/>
+</header>
+
+<main th:object="${user}">
+    <div class="container d-flex flex-wrap justify-content-around align-items-center">
+        <div class=" pet-hotel-profile-picture">
+            <img th:src="*{getImageUrl()}" alt="" class="img-thumbnail"/>
+        </div>
+
+        <div>
+            <p th:text="|Име: *{firstName}|"></p>
+            <p th:text="|Фамилия: *{lastName}|"></p>
+            <p th:text="|email адрес: *{email}|"></p>
+        </div>
+
+        <ul class="list-group">
+            <li class="list-group-item"><a th:href="@{/animals/register}" class="text-decoration-none">Регистрирай домашен любимец</a></li>
+            <li class="list-group-item"><a th:href="@{#}" class="text-decoration-none">Редактирай профила си</a></li>
+        </ul>
+    </div>
+
+    <div class="my-4 d-flex flex-wrap justify-content-around align-items-center">
+        <h5 th:if="*{getAnimals().size() == 0}">Нямате регистрирани любимци</h5>
+        <h5 th:if="*{getAnimals().size() > 0}">Вашите любимци</h5>
+    </div>
+
+    <div class="row d-flex flex-wrap justify-content-around align-items-center my-4">
+        <div class="col-lg-3 col-md-4 col-sm-6 col-12" th:each="a : *{getAnimals()}">
+            <div class="card mx-3 mb-2 box-shadow ">
+                <img th:src="@{${a.imageUrl}}" class="card-img-top rounded-3" alt="Thumbnail [100%x225]"
+                     data-holder-rendered="true"
+                     style="height: auto; max-width: 15rem; display: block;">
+                <div class="card-body">
+                    <div class="text-start">
+                        <p class="card-text border-bottom" th:text="|${a.animalType}: ${a.name}|"></p>
+                        <p class="card-text border-bottom" th:text="|${a.gender.displayLabel}|"></p>
+                        <p class="card-text border-bottom" th:text="|Порода: ${a.breed}|"></p>
+                        <p class="card-text border-bottom" th:text="|Размер: ${a.size.displayLabel}|" th:if="${a.animalType eq types.get('DOG')}"></p>
+                        <th:block th:switch="${a.castrated}">
+                            <p class="card-text border-bottom" th:case="true">Кастрирано</p>
+                            <p class="card-text border-bottom" th:case="false">Некастрирано</p>
+                        </th:block>
+
+                    </div>
+                    <div class="d-flex justify-content-between align-items-center mt-4">
+                        <div class="btn-group">
+                            <a type="button" th:href="@{#}" class="btn btn-sm btn-outline-secondary">Премахни</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</main>
+
+<th:block th:include="~{fragments/footer}"/>
+</body>
+</html>

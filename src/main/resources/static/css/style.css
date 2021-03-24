@@ -1,0 +1,21 @@
+.pet-hotel-logo p {
+    font-size: 80%;
+}
+
+.pet-hotel-custom-font-family {
+    font-family: 'Comfortaa', 'Raleway', cursive;
+}
+
+.pet-hotel-title-font-family {
+    font-family: 'Kurale', serif;
+}
+
+.pet-hotel-home-page {
+    background-image: url("/images/heading_image.png");
+    height: 100vh;
+    background-repeat: no-repeat;
+}
+
+.pet-hotel-profile-picture {
+    max-width: 15rem;
+}

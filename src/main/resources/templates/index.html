@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+<head>
+    <th:block th:include="~{fragments/head}"/>
+    <title>Хотел за домашни любимци - Косматковци</title>
+</head>
+<body>
+<header>
+    <th:block th:include="~{fragments/nav}"/>
+</header>
+<main>
+
+    <div class="bg-image pet-hotel-home-page">
+        <div class="d-flex flex-wrap justify-content-around align-items-center col-12 mx-0">
+            <div class="pet-hotel-custom-font-family">
+                <h1 class="display-1 fw-bold">Косматковци</h1>
+                <h3 class="h4">Хотел за домашни любимци</h3>
+            </div>
+            <div class="text-center my-lg-0 my-md-0 my-sm-4 my-4">
+                <th:block sec:authorize="!isAuthenticated()">
+                    <a th:href="@{/users/login}" class="d-lg-block d-md-block d-sm-inline text-decoration-none">
+                        <button type="button" class="btn btn-lg btn-info text-light">Влезте в профила си</button>
+                    </a>
+                    <p class="d-sm-inline pet-hotel-custom-font-family my-2">ИЛИ СЕ</p>
+                    <a th:href="@{/users/register}" class="d-lg-block d-md-block d-sm-inline text-decoration-none">
+                        <button type="button" class="btn btn-lg btn-success">Регистрирайте</button>
+                    </a>
+                </th:block>
+                <th:block sec:authorize="isAuthenticated()">
+                    <a th:href="@{#}" class="d-lg-block d-md-block d-sm-inline text-decoration-none">
+                        <button type="button" class="btn btn-lg btn-success">Нова резервация</button>
+                    </a>
+                </th:block>
+            </div>
+        </div>
+    </div>
+
+<!--    my-2 pet-hotel-custom-font-family my-2 -->
+
+    <div class="jumbotron jumbotron-fluid pet-hotel-custom-font-family text-center">
+        <h3 class="mx-auto">Кои сме ние?</h3>
+        <article class="col-lg-8 col-md-10 col-sm-10 text-center mx-auto">
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla non tincidunt dui. Nulla venenatis suscipit
+            pharetra. Pellentesque auctor feugiat sem eu venenatis. Vivamus bibendum felis nisi, in vehicula leo
+            sagittis
+            eget. Praesent vel nisl eget dolor tempus iaculis. Suspendisse potenti. Maecenas finibus nec turpis in
+            pretium.
+            Vivamus maximus augue purus.
+
+            Vestibulum aliquam sem id elit imperdiet, ut egestas risus luctus. Vestibulum ante ipsum primis in faucibus
+            orci
+            luctus et ultrices posuere cubilia curae; Duis faucibus auctor semper. Vivamus euismod diam lectus, a
+            consequat
+            risus maximus vitae. Praesent placerat sapien a elit tincidunt tincidunt. In elementum, lectus ut suscipit
+            tincidunt, augue sem convallis nibh, ut facilisis libero metus et purus. Suspendisse quis consectetur massa,
+            ac
+            condimentum lacus. Vivamus eu nisi ipsum. Mauris mattis ipsum non nisl vehicula gravida. Curabitur ultricies
+            enim sed turpis dapibus viverra ac vitae neque. Vestibulum in tellus quis ante lobortis imperdiet. Morbi id
+            sollicitudin dui, sit amet eleifend quam. Fusce mattis, nulla id sollicitudin porta, mauris mauris tincidunt
+            dolor, at maximus tortor magna ac ligula. Nam neque ex, mollis molestie volutpat eu, tincidunt eu massa.
+
+            Donec at mauris ac mi faucibus commodo. In fermentum est non sodales lacinia. Nam et placerat dui, id
+            commodo
+            tellus. Duis vitae tortor ultrices dui sollicitudin sagittis non vitae quam. Mauris congue lectus
+            condimentum
+            ipsum pulvinar, id fringilla diam luctus. Mauris malesuada auctor arcu nec pellentesque. Etiam auctor velit
+            id
+            sem hendrerit aliquet. Fusce aliquet ac orci sit amet faucibus. Quisque quis consectetur ipsum, sit amet
+            condimentum nisi. Mauris eu dui nisi. Donec et nunc orci. Aliquam ultricies fermentum dapibus. Integer
+            fringilla
+            ut dolor ac facilisis. Curabitur volutpat volutpat sapien, sit amet fringilla massa. Mauris luctus, turpis
+            non
+            tincidunt scelerisque, sapien sapien ultrices ligula, vitae feugiat tellus tellus vel ante.
+
+            Morbi dignissim dictum leo a tempor. Maecenas efficitur elit vel urna consequat, vitae posuere justo
+            vulputate.
+            Maecenas dui ex, laoreet quis ipsum in, luctus consequat diam. Proin vel magna non mi sagittis sodales.
+            Quisque
+            nunc elit, semper eu convallis sed, ultricies quis quam. In imperdiet, ligula eget mattis ultrices, sapien
+            ipsum
+            lacinia ex, vel faucibus magna lacus quis quam. Praesent purus enim, convallis sed rutrum non, dignissim nec
+            metus.
+        </article>
+    </div>
+</main>
+
+<th:block th:include="~{fragments/footer}"/>
+</body>
+</html>

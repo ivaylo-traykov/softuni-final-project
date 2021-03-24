@@ -1,0 +1,140 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <th:block th:include="~{fragments/head}"/>
+    <title>Хотел за домашни любимци - Косматковци</title>
+</head>
+<body>
+<header>
+    <th:block th:include="~{fragments/nav}"/>
+</header>
+<main>
+    <div class="container d-flex flex-wrap justify-content-around align-items-center pet-hotel-custom-font-family">
+
+        <h1 class="mb-5">Моля, въведете нужната информация</h1>
+
+        <form th:action="@{/animals/register}"
+              method="POST"
+              th:object="${animal}"
+              enctype="multipart/form-data">
+
+            <div class="form-group row mb-3">
+                <div class="col col-lg-6 col-md-6 col-sm-12 col-12">
+                    <label for="animalTypeSelect" class="col-form-label-lg">Ващият любимец е...</label>
+                    <select name="type"
+                            id="animalTypeSelect"
+                            class="form-control form-control-lg"
+                            th:errorclass="is-invalid"
+                            th:field="*{type}">
+
+                        <option value="" class="dropdown-header p-2">Моля, изберете</option>
+                        <option
+                                th:each="a : ${animalTypes}"
+                                th:text="${a.displayLabel}"
+                                th:value="${a}">
+                        </option>
+                    </select>
+                    <div class="invalid-feedback">Моля изберете</div>
+                </div>
+
+
+                <div class="mb-3 col col-lg-6 col-md-6 col-sm-12 col-12">
+                    <label for="animalGenderSelect" class="col-form-label-lg">Мъжко или женско е то?</label>
+                    <select class="form-control form-control-lg"
+                            id="animalGenderSelect" name="gender"
+                            th:errorclass="is-invalid"
+                            th:field="*{gender}">
+
+                        <option value="" class="dropdown-header p-2">Моля, изберете</option>
+                        <option
+                                th:each="g : ${genders}"
+                                th:value="${g}"
+                                th:text="${g.displayLabel}">
+
+                        </option>
+                    </select>
+                    <div id="animalGenderSelectFeedback" class="invalid-feedback" th:errors="*{gender}"></div>
+                </div>
+            </div>
+
+
+            <div class="mb-3 form-group row">
+                <label for="animalNameInput" class="col-form-label-lg">Как се казва?</label>
+                <input type="text"
+                       name="name"
+                       class="form-control form-control-lg"
+                       id="animalNameInput"
+                       placeholder="Име"
+                       th:errorclass="is-invalid"
+                       th:value="*{name}">
+                <div class="invalid-feedback" id="animalNameInputFeedback" th:errors="*{name}"></div>
+
+                <label for="animalBreedInput" class="col-form-label-lg">Каква порода е?</label>
+                <input type="text"
+                       name="breed"
+                       class="form-control form-control-lg"
+                       id="animalBreedInput"
+                       placeholder="Порода"
+                       th:value="*{breed}">
+            </div>
+
+            <div class="mb-3 col col-lg-6 col-md-6 col-sm-12 col-12" id="pet-hotel-dog-size-select">
+                <label for="dogSizeSelect" class="col-form-label-lg">Какъв размере е?</label>
+                <select name="size"
+                        id="dogSizeSelect"
+                        class="form-control form-select-lg">
+
+                    <option value="" class="dropdown-header p-2">Моля, изберете</option>
+                    <option
+                            th:each="s : ${sizes}"
+                            th:value="${s}"
+                            th:text="${s.displayLabel}">
+
+                    </option>
+                </select>
+                <div class="text-danger" th:if="${noSizeSelected}">Моля, изберете размер</div>
+            </div>
+
+
+            <div class="mb-3 form-check row">
+                <legend class="col-form-label-lg">Кастрирано ли е?</legend>
+                <div class="form-check">
+                    <label class="form-check-label" for="castratedInputTrue">Да</label>
+                    <input class="form-check-input"
+                           type="radio"
+                           name="castrated"
+                           id="castratedInputTrue"
+                           value="true">
+                </div>
+
+                <div class="form-check">
+                    <label class="form-check-label" for="castratedInputFalse">Не</label>
+                    <input class="form-check-input"
+                           type="radio"
+                           name="castrated"
+                           id="castratedInputFalse"
+                           value="false">
+                </div>
+            </div>
+
+
+            <div class="mb-3 form-check row">
+                <label class="form-check-label col-form-label-lg" for="animalImageInput">Изберете снимка <small>(по желание)</small></label>
+                <input type="file"
+                       id="animalImageInput"
+                       class="form-control-file"
+                       name="image">
+            </div>
+
+
+            <div class="float-end">
+                <button type="submit" class="btn btn-primary btn-lg">Регистрирай</button>
+            </div>
+
+
+        </form>
+    </div>
+</main>
+<th:block th:include="~{fragments/footer}"/>
+</body>
+</html>
