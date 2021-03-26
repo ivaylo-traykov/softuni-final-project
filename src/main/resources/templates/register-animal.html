@@ -54,7 +54,7 @@
                                 th:text="${g.displayLabel}">
                         </option>
                     </select>
-                    <div id="animalGenderSelectFeedback" class="invalid-feedback" th:errors="*{gender}"></div>
+                    <div id="animalGenderSelectFeedback" class="invalid-feedback" th:errors="*{gender}">Моля изберете</div>
                 </div>
             </div>
 
@@ -69,7 +69,7 @@
                        th:errorclass="is-invalid"
                        th:value="*{name}"
                        required>
-                <div class="invalid-feedback" id="animalNameInputFeedback" th:errors="*{name}"></div>
+                <div class="invalid-feedback" id="animalNameInputFeedback" th:errors="*{name}">Моля, посочете име</div>
 
                 <label for="animalBreedInput" class="col-form-label-lg">Каква порода е?</label>
                 <input type="text"
@@ -93,9 +93,9 @@
                             th:each="s : ${sizes}"
                             th:value="${s}"
                             th:text="${s.displayLabel}">
-
                     </option>
                 </select>
+                <div class="invalid-feedback">Моля, посочете размера на кучето</div>
             </div>
 
 
@@ -120,7 +120,7 @@
                            value="false"
                            required>
                 </div>
-                <div class="invalid-feedback" th:errors="*{castrated}"></div>
+                <div id="castratedInputError" class="invalid-feedback" hidden>Моля посочете. Ако не сте сигурни изберете опция "Не"</div>
             </div>
 
 

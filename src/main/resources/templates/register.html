@@ -8,7 +8,7 @@
 <header>
     <th:block th:include="~{fragments/nav}"/>
 </header>
-
+`
 <div class="container-fluid text-center col-lg-4 col-md-8 col-sm-10 pet-hotel-custom-font-family">
 
     <h1>Регистрация</h1>
@@ -16,73 +16,81 @@
 
     <form   th:action="@{/users/register}"
             method="POST"
-            th:object="${registerModel}">
+            th:object="${registerModel}"
+            id="userRegistrationForm">
 
-        <p th:if="${emailExists}" class="text-danger">Този имейл вече е зает</p>
+        <p th:if="${emailExists}" class="text-danger mb-3">Този имейл вече е зает</p>
 
         <div class="form-floating mb-3">
-            <label for="floatingInput">Електрона поща</label>
             <input type="email"
                    name="email"
                    class="form-control"
                    id="floatingInput"
                    placeholder="name@example.com"
                    th:errorclass="is-invalid"
-                   th:value="*{email}">
+                   th:value="*{email}"
+                   required>
+            <label for="floatingInput">Електрона поща</label>
             <div id="floatingInputFeedback" class="invalid-feedback" th:errors="*{email}"></div>
         </div>
 
         <div class="input-group form-check-inline mb-3">
             <div class="form-floating pe-lg-3 pe-md-3 pe-sm-0 col-lg-6 col-md-6 col-sm-12 mb-lg-0 mb-md-0 mb-sm-3 col-12 mb-3">
 
-                <label for="floatingNameInput">Име</label>
                 <input type="text"
                        name="firstName"
                        class="form-control"
                        id="floatingNameInput"
                        placeholder="Име"
                        th:errorclass="is-invalid"
-                       th:value="*{firstName}">
+                       th:value="*{firstName}"
+                       required>
+                <label for="floatingNameInput">Име</label>
                 <div id="floatingNameInputFeedback" class="invalid-feedback" th:errors="*{firstName}"></div>
             </div>
 
             <div class="form-floating mx-0 px-0 col-lg-6 col-md-6 col-sm-12 col-12">
-                <label for="floatingSurnameInput">Фамилия</label>
                 <input type="text"
                        name="lastName"
                        class="form-control"
                        id="floatingSurnameInput"
                        placeholder="Фамилия"
                        th:errorclass="is-invalid"
-                       th:value="*{lastName}">
+                       th:value="*{lastName}"
+                       required>
+                <label for="floatingSurnameInput">Фамилия</label>
                 <div id="floatingSurnameInputFeedback" class="invalid-feedback" th:errors="*{lastName}"></div>
             </div>
         </div>
 
         <div class="form-floating mb-3">
-            <label for="floatingPassword">Парола</label>
             <input type="password"
                    name="password"
                    class="form-control"
                    id="floatingPassword"
                    placeholder="Парола"
-                   th:errorclass="is-invalid">
+                   th:errorclass="is-invalid"
+                   required>
+            <label for="floatingPassword">Парола</label>
             <div id="floatingPasswordFeedback" class="invalid-feedback" th:errors="*{password}"></div>
+            <div class="text-danger" id="passwordLengthError" hidden>Паролата не може да бъде по-малко от 6 символа</div>
         </div>
 
         <div class="form-floating mb-3">
-            <label for="floatingConfirmPassword">Повторете паролата</label>
             <input type="password"
                    name="confirmPassword"
                    class="form-control"
                    id="floatingConfirmPassword"
                    placeholder="Повторете паролата"
-                   th:errorclass="is-invalid">
+                   th:errorclass="is-invalid"
+                   required>
+            <label for="floatingConfirmPassword">Повторете паролата</label>
             <div id="floatingConfirmPasswordFeedback" class="invalid-feedback" th:errors="*{confirmPassword}"></div>
+            <div class="text-danger" id="userRegisterPasswordMismatch" hidden>Паролите не съвпадат</div>
         </div>
 
         <div class="mb-4 float-end">
-            <button type="submit" class="btn btn-primary btn-lg">Регистрация</button>
+            <button type="submit" disabled id="userRegisterSubmitButton" class="btn btn-primary btn-lg">Регистрация</button>
         </div>
     </form>
     <div class="clearfix"></div>

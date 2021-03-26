@@ -2,7 +2,7 @@ $(document).ready(function () {
 
     /*
      ANIMAL REGISTRATION FORM
-     Handle from-end validation and proper fields display
+     Handle front-end validation and proper fields display
      */
     const animalTypeSelect = $("#animalTypeSelect");
     const animalSizeSelect = $("#dogSizeSelect");
@@ -30,57 +30,115 @@ $(document).ready(function () {
         hideAndShowSizeField();
     });
 
+    // function validateSelectElement(option) {
+    //     if (option.val() === "") {
+    //         option.addClass("is-invalid");
+    //         return true;
+    //     } else {
+    //         option.removeClass("is-invalid")
+    //         return false;
+    //     }
+    // }
+    //
+    // // Validate mandatory fields on button click
+    // animalRegistrationButton.on("click", function (e) {
+    //     let castratedSelected = false;
+    //     let foundErrors = false;
+    //
+    //     if (validateSelectElement(animalTypeSelect)) {
+    //         foundErrors = true;
+    //     }
+    //     if (validateSelectElement(animalGenderSelect)) {
+    //         foundErrors = true;
+    //     }
+    //
+    //     if (animalTypeSelect.val() === "DOG") {
+    //         if (validateSelectElement(animalSizeSelect)) {
+    //             foundErrors = true;
+    //         }
+    //     }
+    //
+    //     for (let i = 0; i < castratedInput.length; i++) {
+    //         if (castratedInput[i].checked) {
+    //             castratedSelected = true;
+    //         }
+    //     }
+    //
+    //     if (animalNameInput.val().trim() === "") {
+    //         animalNameInput.addClass("is-invalid");
+    //         animalNameInput.val("");
+    //     } else {
+    //         animalNameInput.removeClass("is-invalid");
+    //     }
+    //
+    //     if (!castratedSelected) {
+    //         $("#pet-hotel-castrated-field-form").addClass("is-invalid");
+    //         $("#castratedInputError").attr("hidden", false);
+    //         foundErrors = true;
+    //     } else {
+    //         $("#pet-hotel-castrated-field-form").removeClass("is-invalid");
+    //         $("#castratedInputError").attr("hidden", true);
+    //     }
+    //
+    //     if (foundErrors) {
+    //         e.preventDefault();
+    //     }
+    // });
 
-    function validateSelectElement(option) {
-        if (option.val() === "") {
-            option.addClass("is-invalid");
+    /*
+        USER REGISTRATION FORM
+        Check if password length and if passwords match
+     */
+
+    const passwordField = $("#userRegistrationForm #floatingPassword");
+    const confirmPasswordField = $("#userRegistrationForm #floatingConfirmPassword");
+    let password = passwordField.val();
+    let confirmPassword = confirmPasswordField.val();
+
+    function passwordsMatch(password, confirmPassword) {
+        if (password === confirmPassword) {
+            confirmPasswordField.addClass("is-valid");
+            confirmPasswordField.removeClass("is-invalid");
+            $("#userRegisterPasswordMismatch").attr("hidden", true);
             return true;
         } else {
-            option.removeClass("is-invalid")
+            confirmPasswordField.addClass("is-invalid");
+            confirmPasswordField.removeClass("is-valid");
+            $("#userRegisterPasswordMismatch").attr("hidden", false);
             return false;
         }
     }
 
-    // Validate mandatory fields on button click
-    animalRegistrationButton.on("click", function (e) {
-        let castratedSelected = false;
-        let foundErrors = false;
-
-        if (validateSelectElement(animalTypeSelect)) {
-            foundErrors = true;
-        }
-        if (validateSelectElement(animalGenderSelect)) {
-            foundErrors = true;
-        }
-
-        if (animalTypeSelect.val() === "DOG") {
-            if (validateSelectElement(animalSizeSelect)) {
-                foundErrors = true;
-            }
-        }
-
-        for (let i = 0; i < castratedInput.length; i++) {
-            if (castratedInput[i].checked) {
-                castratedSelected = true;
-            }
-        }
-
-        if (animalNameInput.val().trim() === "") {
-            animalNameInput.addClass("is-invalid");
+    function checkPasswordLength(password) {
+        if (password.length >= 6) {
+            passwordField.addClass("is-valid");
+            passwordField.removeClass("is-invalid");
+            $("#passwordLengthError").attr("hidden", true);
+            return true;
         } else {
-            animalNameInput.removeClass("is-invalid");
+            passwordField.addClass("is-invalid");
+            passwordField.removeClass("is-valid");
+            $("#passwordLengthError").attr("hidden", false);
+            return false;
         }
+    }
 
-        if (!castratedSelected) {
-            $("#pet-hotel-castrated-field-form").addClass("is-invalid");
-            foundErrors = true;
+    function enableRegisterButton() {
+        if (!(checkPasswordLength(password) && passwordsMatch(password, confirmPassword))) {
+            $("#userRegisterSubmitButton").attr("disabled", true);
         } else {
-            $("#pet-hotel-castrated-field-form").removeClass("is-invalid");
+            $("#userRegisterSubmitButton").attr("disabled", false);
         }
+    }
 
-        if (foundErrors) {
-            e.preventDefault();
-        }
+    passwordField.change(function () {
+        password = passwordField.val();
+        enableRegisterButton();
+    });
+
+    confirmPasswordField.change(function () {
+        confirmPassword = confirmPasswordField.val();
+        enableRegisterButton();
     });
 });
 

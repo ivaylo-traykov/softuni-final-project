@@ -1,9 +1,16 @@
 package bg.softuni.pethotel.model.binding;
 
+import bg.softuni.pethotel.validator.FieldMatch;
+
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 
+@FieldMatch(
+        first = "password",
+        second = "confirmPassword",
+        message = "Паролите не съвпадат"
+)
 public class UserRegisterBindingModel {
     private String email;
     private String firstName;

@@ -4,7 +4,6 @@ import bg.softuni.pethotel.model.binding.UserRegisterBindingModel;
 import bg.softuni.pethotel.model.service.UserRegisterServiceModel;
 import bg.softuni.pethotel.service.UserService;
 import org.modelmapper.ModelMapper;
-import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
