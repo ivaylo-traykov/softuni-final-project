@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+<head>
+    <th:block th:include="~{fragments/head}"/>
+    <title>Хотел за домашни любимци - Косматковци</title>
+</head>
+<body onload="fetchApprovedComments(0)">
+<header>
+    <th:block th:include="~{fragments/nav}"/>
+</header>
+
+<main>
+    <div class="container-fluid text-center col-lg-6 col-md-8 col-sm-10 col-12 pet-hotel-custom-font-family">
+        <h2 id="commentsPageHeader">Ето какво мислят нашите гости</h2>
+
+        <div id="commentsContainer">
+            <div class="container py-4">
+                <div class="row g-2 my-3">
+                    <div class="col-lg-6 col-md-6 col-sm-12 col-12 text-sm-start text-center">
+                        <div class="px-3">Custom column padding</div>
+                    </div>
+                    <div class="col-lg-6 col-md-6 col-sm-12 col-12 text-sm-start text-center">
+                        <div class="px-3">Custom column padding</div>
+                    </div>
+                    <div class="col-12">
+                        <div class="p-3 border bg-light text-start">Custom column padding</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="btn-group me-2" role="group" id="commentsPageButtonsContainer" aria-label="Second group">
+            <button type="button" class="btn btn-outline-secondary" id="firstPageOfComments">Начална</button>
+            <button type="button" class="btn btn-outline-secondary" id="previousPageOfComments">5</button>
+            <button type="button" class="btn btn-outline-secondary" id="currentPageOfComments">6</button>
+            <button type="button" class="btn btn-outline-secondary" id="nextPageOfComments">7</button>
+            <button type="button" class="btn btn-outline-secondary" id="lastPageOfComments">Последна</button>
+        </div>
+
+        <div class="mt-4" id="petHotelCommentPostForm">
+            <h2>Как бихте ни оценили?</h2>
+            <form th:action="@{#}" method="POST">
+                <div class="form-check form-check-inline m-1 p-1">
+                    <input class="" type="radio" name="rating" id="hotelRatingScale1" value="1">
+                    <label class="pet-hotel-comment-form-radio-label" for="hotelRatingScale1"></label>
+                </div>
+                <div class="form-check form-check-inline m-1 p-1">
+                    <input class="" type="radio" name="rating" id="hotelRatingScale2" value="2">
+                    <label class="pet-hotel-comment-form-radio-label" for="hotelRatingScale2"></label>
+                </div>
+                <div class="form-check form-check-inline m-1 p-1">
+                    <input class="" type="radio" name="rating" id="hotelRatingScale3" value="3">
+                    <label class="pet-hotel-comment-form-radio-label" for="hotelRatingScale3"></label>
+                </div>
+                <div class="form-check form-check-inline m-1 p-1">
+                    <input class="" type="radio" name="rating" id="hotelRatingScale4" value="4">
+                    <label class="pet-hotel-comment-form-radio-label" for="hotelRatingScale4"></label>
+                </div>
+                <div class="form-check form-check-inline m-1 p-1">
+                    <input class="" type="radio" name="rating" id="hotelRatingScale5" value="5">
+                    <label class="pet-hotel-comment-form-radio-label" for="hotelRatingScale5"></label>
+                </div>
+                <div class="text-danger" id="ratingError" hidden>Моля, дайте оценка от 1 до 5</div>
+
+                <div class="form-floating mt-4">
+                    <textarea class="form-control"
+                          placeholder="Оставете вашия коментар тук..."
+                          id="commentDescription"
+                          name="description"
+                          style="height: 100px"></textarea>
+                    <label for="commentDescription">Вашият коментар</label>
+                    <small class="text-danger" id="descriptionError" hidden>Моля, напишете вашия отзив</small>
+                </div>
+                <button type="button" class="btn btn-primary mt-4" id="postCommentButton">Коментирай</button>
+            </form>
+        </div>
+    </div>
+</main>
+
+
+<th:block th:include="~{fragments/footer}"/>
+<script src="/js/commentsPagination.js"></script>
+</body>
+</html>

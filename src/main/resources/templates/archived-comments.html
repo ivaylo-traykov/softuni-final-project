@@ -1,0 +1,21 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <th:block th:include="~{fragments/head}"/>
+    <title>Хотел за домашни любимци - Косматковци</title>
+</head>
+<body onload="fetchArchivedComments()">
+<header>
+    <th:block th:include="~{fragments/nav}"/>
+</header>
+
+<div class="container-fluid text-center col-lg-6 col-md-8 col-sm-10 col-12 pet-hotel-custom-font-family">
+    <div id="pendingCommentsContainer">
+
+    </div>
+</div>
+
+<th:block th:include="~{fragments/footer}"/>
+<script src="/js/commentsPagination.js"></script>
+</body>
+</html>

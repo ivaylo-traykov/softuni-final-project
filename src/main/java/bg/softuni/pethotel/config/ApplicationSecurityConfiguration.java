@@ -3,6 +3,7 @@ package bg.softuni.pethotel.config;
 import bg.softuni.pethotel.service.impl.ApplicationUserService;
 import org.springframework.boot.autoconfigure.security.servlet.PathRequest;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -27,6 +28,9 @@ public class ApplicationSecurityConfiguration extends WebSecurityConfigurerAdapt
                 .authorizeRequests()
                     .requestMatchers(PathRequest.toStaticResources().atCommonLocations()).permitAll()
                     .antMatchers("/", "/users/login", "/users/register").permitAll()
+                    .antMatchers("/comments/pending", "/comments/archived",
+                            "/comments/approve/**", "/comments/archive/**", "/comments/delete/**",
+                            "/comments/pending-comments", "/comments/archived-comments").hasAnyRole("MODERATOR")
                     .antMatchers("/**").authenticated()
                 .and()
                     .formLogin()
@@ -40,7 +44,8 @@ public class ApplicationSecurityConfiguration extends WebSecurityConfigurerAdapt
                         .logoutUrl("/users/logout")
                         .logoutSuccessUrl("/")
                         .invalidateHttpSession(true)
-                        .deleteCookies("JSESSIONID");
+                        .deleteCookies("JSESSIONID")
+                .and().cors().and().csrf().disable();
     }
 
     @Override

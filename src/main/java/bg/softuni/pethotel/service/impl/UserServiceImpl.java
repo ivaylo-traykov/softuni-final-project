@@ -18,6 +18,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
@@ -55,7 +56,40 @@ public class UserServiceImpl implements UserService {
                     .addRole(findRole(RoleNameEnum.MODERATOR))
                     .addRole(findRole(RoleNameEnum.ADMIN));
 
-            userRepository.save(admin);
+            UserEntity moderator = new UserEntity()
+                    .setEmail("moderator@mail.com")
+                    .setFirstName("Ivan")
+                    .setLastName("Ivanov")
+                    .setImageUrl("/images/admin_profile.png")
+                    .setPassword(passwordEncoder.encode("123456"))
+                    .addRole(findRole(RoleNameEnum.USER))
+                    .addRole(findRole(RoleNameEnum.MODERATOR));
+
+            UserEntity user = new UserEntity()
+                    .setEmail("ggeorgiev@mail.com")
+                    .setFirstName("Georgi")
+                    .setLastName("Georgiev")
+                    .setImageUrl("/images/user_profile.png")
+                    .setPassword(passwordEncoder.encode("123456"))
+                    .addRole(findRole(RoleNameEnum.USER));
+
+            UserEntity user2 = new UserEntity()
+                    .setEmail("petarp@mail.com")
+                    .setFirstName("Петър")
+                    .setLastName("Петров")
+                    .setImageUrl("/images/user_profile.png")
+                    .setPassword(passwordEncoder.encode("123456"))
+                    .addRole(findRole(RoleNameEnum.USER));
+
+            UserEntity user3 = new UserEntity()
+                    .setEmail("mtz@mail.com")
+                    .setFirstName("Мария")
+                    .setLastName("Цветкова")
+                    .setImageUrl("/images/user_profile.png")
+                    .setPassword(passwordEncoder.encode("123456"))
+                    .addRole(findRole(RoleNameEnum.USER));
+
+            userRepository.saveAll(List.of(admin, moderator, user, user2, user3));
         }
     }
 

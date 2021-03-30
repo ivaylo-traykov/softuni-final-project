@@ -30,61 +30,6 @@ $(document).ready(function () {
         hideAndShowSizeField();
     });
 
-    // function validateSelectElement(option) {
-    //     if (option.val() === "") {
-    //         option.addClass("is-invalid");
-    //         return true;
-    //     } else {
-    //         option.removeClass("is-invalid")
-    //         return false;
-    //     }
-    // }
-    //
-    // // Validate mandatory fields on button click
-    // animalRegistrationButton.on("click", function (e) {
-    //     let castratedSelected = false;
-    //     let foundErrors = false;
-    //
-    //     if (validateSelectElement(animalTypeSelect)) {
-    //         foundErrors = true;
-    //     }
-    //     if (validateSelectElement(animalGenderSelect)) {
-    //         foundErrors = true;
-    //     }
-    //
-    //     if (animalTypeSelect.val() === "DOG") {
-    //         if (validateSelectElement(animalSizeSelect)) {
-    //             foundErrors = true;
-    //         }
-    //     }
-    //
-    //     for (let i = 0; i < castratedInput.length; i++) {
-    //         if (castratedInput[i].checked) {
-    //             castratedSelected = true;
-    //         }
-    //     }
-    //
-    //     if (animalNameInput.val().trim() === "") {
-    //         animalNameInput.addClass("is-invalid");
-    //         animalNameInput.val("");
-    //     } else {
-    //         animalNameInput.removeClass("is-invalid");
-    //     }
-    //
-    //     if (!castratedSelected) {
-    //         $("#pet-hotel-castrated-field-form").addClass("is-invalid");
-    //         $("#castratedInputError").attr("hidden", false);
-    //         foundErrors = true;
-    //     } else {
-    //         $("#pet-hotel-castrated-field-form").removeClass("is-invalid");
-    //         $("#castratedInputError").attr("hidden", true);
-    //     }
-    //
-    //     if (foundErrors) {
-    //         e.preventDefault();
-    //     }
-    // });
-
     /*
         USER REGISTRATION FORM
         Check if password length and if passwords match

@@ -19,3 +19,50 @@
 .pet-hotel-profile-picture {
     max-width: 15rem;
 }
+
+#petHotelCommentPostForm input[type="radio"] {
+    -webkit-appearance: none;
+}
+
+.pet-hotel-comment-form-radio-label {
+    width: 25px;
+    height: 25px;
+    background-image: url("/images/paw-empty.png");
+    background-size: contain;
+}
+
+.selectedRadioInput + label {
+    background-image: url("/images/paw-filled.png");
+}
+
+.pet-hotel-rating {
+    display: inline-block;
+    width: 25px;
+    height: 25px;
+    padding: 3px;
+    margin-right: 5px;
+}
+
+.pet-hotel-rating-positive {
+    background-image: url("/images/paw-filled.png");
+    background-size: contain;
+}
+
+.pet-hotel-rating-negative {
+    background-image: url("/images/paw-empty.png");
+    background-size: contain;
+}
+
+.pet-hotel-notification {
+    padding: 2em;
+    border-radius: 25px;
+}
+
+.pet-hotel-notification-positive {
+    background-color: lightgreen;
+    color: green;
+}
+
+.pet-hotel-custom-btn-width {
+    width: 9em;
+}
