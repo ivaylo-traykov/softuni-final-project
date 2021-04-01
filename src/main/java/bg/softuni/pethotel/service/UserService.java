@@ -3,12 +3,14 @@ package bg.softuni.pethotel.service;
 import bg.softuni.pethotel.model.entity.UserEntity;
 import bg.softuni.pethotel.model.service.UserEditServiceModel;
 import bg.softuni.pethotel.model.service.UserRegisterServiceModel;
+import bg.softuni.pethotel.model.view.UserListViewModel;
 import bg.softuni.pethotel.model.view.UserProfileViewModel;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.io.IOException;
 import java.util.Collection;
+import java.util.List;
 
 public interface UserService {
     void seedInitialUsers();
@@ -28,4 +30,6 @@ public interface UserService {
     boolean isOwnerOrModerator(Long id, UserDetails principal);
 
     boolean isModerator(Collection<? extends GrantedAuthority> authorities);
+
+    List<UserListViewModel> getFilteredUsersList(String keyword);
 }

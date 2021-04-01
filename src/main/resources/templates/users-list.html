@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <th:block th:include="~{fragments/head}"/>
+    <title>Хотел за домашни любимци - Косматковци</title>
+</head>
+<body>
+<header>
+    <th:block th:include="~{fragments/nav}"/>
+</header>
+
+<main class="text-center">
+    <form th:action="@{/users/list}" class="m-4">
+        <label for="petHotelSearch">Търси</label>
+        <input type="text" name="keyword" id="petHotelSearch" size="50" th:value="${keyword}" required/>
+        <input type="submit" value="ТЪРСИ" class="btn btn-info">
+        <input type="button" value="ИЗЧИСТИ" id="btnClear" class="btn btn-info" onclick="clearSearch()"/>
+    </form>
+
+    <div th:each="user : ${users}"
+         class="row col-md-8 p-3 m-auto border-bottom border-info">
+        <p th:text="${user.email}" class="col-md-3 text-start"></p>
+        <p th:text="${user.firstName}" class="col-md-3 text-end"></p>
+        <p th:text="${user.lastName}" class="col-md-3 text-start"></p>
+        <a th:href="@{/profile/edit/{id}(id = ${user.id})}" class="col-md-2 text-center btn btn-info">РЕДАКТИРАЙ</a>
+    </div>
+</main>
+
+<th:block th:include="~{fragments/footer}"/>
+
+<script type="text/javascript">
+    function clearSearch() {
+        window.location = "[[@{/users/list}]]";
+    }
+</script>
+</body>
+</html>

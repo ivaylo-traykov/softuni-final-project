@@ -36,7 +36,7 @@
                                 <li><a class="dropdown-item" th:href="@{/comments/archived}">Архивирани коментари</a></li>
                                 <th:block sec:authorize="hasRole('ROLE_ADMIN')">
                                     <li><hr class="dropdown-divider"></li>
-                                    <li><a class="dropdown-item" th:href="@{#}">Потребители</a></li>
+                                    <li><a class="dropdown-item" th:href="@{/users/list}">Потребители</a></li>
                                 </th:block>
                             </ul>
                         </div>

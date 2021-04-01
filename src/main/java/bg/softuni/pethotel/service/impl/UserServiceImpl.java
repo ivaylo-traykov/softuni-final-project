@@ -6,6 +6,7 @@ import bg.softuni.pethotel.model.enums.RoleNameEnum;
 import bg.softuni.pethotel.model.service.UserEditServiceModel;
 import bg.softuni.pethotel.model.service.UserRegisterServiceModel;
 import bg.softuni.pethotel.model.view.AnimalViewModel;
+import bg.softuni.pethotel.model.view.UserListViewModel;
 import bg.softuni.pethotel.model.view.UserProfileViewModel;
 import bg.softuni.pethotel.repository.UserRepository;
 import bg.softuni.pethotel.service.CloudinaryService;
@@ -24,6 +25,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -165,20 +167,20 @@ public class UserServiceImpl implements UserService {
 
         UserEditServiceModel editUser = modelMapper.map(user, UserEditServiceModel.class);
 
-        List<RoleNameEnum> roleNames = user.getRoles()
-                .stream()
-                .map(RoleEntity::getName)
-                .collect(Collectors.toList());
-
-        editUser.setHighestRole(findHighestRole(roleNames));
+        editUser.setHighestRole(findHighestRole(user.getRoles()));
 
         return editUser;
     }
 
-    private RoleNameEnum findHighestRole(List<RoleNameEnum> roles) {
-        if (roles.contains(RoleNameEnum.ADMIN)) {
+    private RoleNameEnum findHighestRole(List<RoleEntity> roles) {
+        List<RoleNameEnum> roleNames = roles
+                .stream()
+                .map(RoleEntity::getName)
+                .collect(Collectors.toList());
+
+        if (roleNames.contains(RoleNameEnum.ADMIN)) {
             return RoleNameEnum.ADMIN;
-        } else if (roles.contains(RoleNameEnum.MODERATOR)) {
+        } else if (roleNames.contains(RoleNameEnum.MODERATOR)) {
             return RoleNameEnum.MODERATOR;
         } else {
             return RoleNameEnum.USER;
@@ -199,12 +201,11 @@ public class UserServiceImpl implements UserService {
             user.setImageUrl(imageUrl);
         }
 
-        List<RoleNameEnum> userRoles = user.getRoles()
-                .stream()
-                .map(RoleEntity::getName)
-                .collect(Collectors.toList());
+        if (userEditServiceModel.getHighestRole() == null) {
+            userEditServiceModel.setHighestRole(findHighestRole(user.getRoles()));
+        }
 
-        if (!findHighestRole(userRoles).equals(userEditServiceModel.getHighestRole())) {
+        if (!findHighestRole(user.getRoles()).equals(userEditServiceModel.getHighestRole())) {
             List<RoleEntity> newRoles = getListOfRoles(userEditServiceModel.getHighestRole());
             user.setRoles(newRoles);
         }
@@ -238,5 +239,24 @@ public class UserServiceImpl implements UserService {
     public boolean isModerator(Collection<? extends GrantedAuthority> authorities) {
         GrantedAuthority moderator = new SimpleGrantedAuthority("ROLE_MODERATOR");
         return authorities.contains(moderator);
+    }
+
+    @Override
+    public List<UserListViewModel> getFilteredUsersList(String keyword) {
+        List<UserEntity> users;
+
+        if (keyword != null) {
+            users = userRepository.searchByKeyword(keyword);
+        } else {
+            users = userRepository.findAll();
+        }
+
+        if (users.size() > 0) {
+            return users.stream()
+                    .map(u -> modelMapper.map(u, UserListViewModel.class))
+                    .collect(Collectors.toList());
+        }
+
+        return new ArrayList<>();
     }
 }

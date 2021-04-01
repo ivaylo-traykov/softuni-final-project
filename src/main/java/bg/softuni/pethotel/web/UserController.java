@@ -2,9 +2,12 @@ package bg.softuni.pethotel.web;
 
 import bg.softuni.pethotel.model.binding.UserRegisterBindingModel;
 import bg.softuni.pethotel.model.service.UserRegisterServiceModel;
+import bg.softuni.pethotel.model.view.UserListViewModel;
 import bg.softuni.pethotel.service.UserService;
 import org.modelmapper.ModelMapper;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -13,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
+import java.util.List;
 
 @Controller
 @RequestMapping("/users")
@@ -73,5 +77,22 @@ public class UserController {
         attributes.addFlashAttribute("email", email);
 
         return "redirect:/users/login";
+    }
+
+    @GetMapping("/all")
+    public String getAllUsers() {
+
+        return "users-list";
+    }
+
+    @RequestMapping("/list")
+    public String usersList(Model model, @Param("keyword") String keyword) {
+
+        List<UserListViewModel> users = userService.getFilteredUsersList(keyword);
+
+        model.addAttribute("users", users);
+        model.addAttribute("keyword", keyword);
+
+        return "users-list";
     }
 }
