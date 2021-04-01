@@ -79,12 +79,6 @@ public class UserController {
         return "redirect:/users/login";
     }
 
-    @GetMapping("/all")
-    public String getAllUsers() {
-
-        return "users-list";
-    }
-
     @RequestMapping("/list")
     public String usersList(Model model, @Param("keyword") String keyword) {
 

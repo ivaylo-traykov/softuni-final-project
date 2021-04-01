@@ -10,6 +10,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
@@ -69,10 +70,10 @@ public class ProfileController {
 
     @PostMapping("/edit/{id}")
     public String updateUser(@Valid UserEditServiceModel userEditServiceModel,
-                              BindingResult bindingResult,
-                              RedirectAttributes redirectAttributes,
-                              @PathVariable Long id,
-                              @AuthenticationPrincipal UserDetails principal) throws IOException, IllegalAccessException {
+                             BindingResult bindingResult,
+                             RedirectAttributes redirectAttributes,
+                             @PathVariable Long id,
+                             @AuthenticationPrincipal UserDetails principal) throws IOException, IllegalAccessException {
         if (bindingResult.hasErrors()) {
             redirectAttributes.addFlashAttribute("editUser", userEditServiceModel);
             redirectAttributes.addFlashAttribute("org.springframework.validation.BindingResult.editUser", bindingResult);
@@ -86,5 +87,12 @@ public class ProfileController {
         userService.updateUser(userEditServiceModel, id);
 
         return "redirect:/profile";
+    }
+
+    @ExceptionHandler({IllegalAccessException.class})
+    public ModelAndView accessExceptionHandler(Exception e) {
+        ModelAndView mv = new ModelAndView("error");
+        mv.addObject("message", e.getMessage());
+        return mv;
     }
 }

@@ -1,18 +1,23 @@
 <!doctype html>
-<html lang="en"  xmlns:th="http://www.thymeleaf.org"
-                 xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
 <head>
-    <th:block th:include="~{fragments/head}" />
+    <th:block th:include="~{fragments/head}"/>
     <title>Хотел за домашни любимци - Косматковци</title>
 </head>
-    <body>
-        <header>
-            <th:block th:include="~{fragments/nav}" />
-        </header>
+<body>
+<header>
+    <th:block th:include="~{fragments/nav}"/>
+</header>
 
+<main>
+    <div class="container text-center">
 
-        <h1>ERROR!</h1>
+        <h1>Възникна грешка</h1>
+        <p th:text="${message}">Моля, върнете се обратно към сайта</p>
+    </div>
+</main>
 
-        <th:block th:include="~{fragments/footer}" />
-    </body>
+<th:block th:include="~{fragments/footer}"/>
+</body>
 </html>

@@ -1,0 +1,23 @@
+<!doctype html>
+<html lang="en"  xmlns:th="http://www.thymeleaf.org">
+<head>
+    <th:block th:include="~{fragments/head}" />
+    <title>Хотел за домашни любимци - Косматковци</title>
+</head>
+<body>
+<header>
+    <th:block th:include="~{fragments/nav}" />
+</header>
+
+<main>
+    <div class="container text-center">
+
+        <h1>Възникна грешка</h1>
+        <p th:text="${message}"></p>
+        <img src="/images/cat_programmer.gif" alt="cat typing on a computer" style="width: 25em; max-width: 100%;">
+    </div>
+</main>
+
+<th:block th:include="~{fragments/footer}" />
+</body>
+</html>

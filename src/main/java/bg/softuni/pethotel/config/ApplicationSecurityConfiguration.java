@@ -27,7 +27,7 @@ public class ApplicationSecurityConfiguration extends WebSecurityConfigurerAdapt
         http
                 .authorizeRequests()
                     .requestMatchers(PathRequest.toStaticResources().atCommonLocations()).permitAll()
-                    .antMatchers("/", "/users/login", "/users/register").permitAll()
+                    .antMatchers("/", "/users/login", "/users/register", "/gallery").permitAll()
                     .antMatchers("/comments/pending", "/comments/archived",
                             "/comments/approve/**", "/comments/archive/**", "/comments/delete/**",
                             "/comments/pending-comments", "/comments/archived-comments").hasAnyRole("MODERATOR")

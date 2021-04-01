@@ -1,3 +1,7 @@
+main {
+    min-height: 50vh;
+}
+
 .pet-hotel-logo p {
     font-size: 80%;
 }
