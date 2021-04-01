@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+<head>
+    <th:block th:include="~{fragments/head}"/>
+    <title>Хотел за домашни любимци - Косматковци</title>
+</head>
+<body>
+<header>
+    <th:block th:include="~{fragments/nav}"/>
+</header>
+<main>
+    <div class="container-fluid text-center col-lg-4 col-md-8 col-sm-10 pet-hotel-custom-font-family">
+        <form th:action="@{'/profile/edit/' + *{id}}" method="POST" th:object="${editUser}" enctype="multipart/form-data">
+
+            <div class="mb-3 row">
+                <label for="emailFiled" class="col-sm-6 col-form-label">Електронна поща</label>
+                <div class="col-sm-6">
+                    <input type="text" name="email" id="emailFiled" th:value="*{email}"
+                           class="form-control-plaintext" readonly>
+                </div>
+            </div>
+
+            <div class="mb-3 row">
+                <label for="firstNameInput" class="col-sm-2 col-form-label">Име</label>
+                <div class="col-sm-10">
+                    <input type="text"
+                           name="firstName"
+                           id="firstNameInput"
+                           th:value="*{firstName}"
+                           th:errorclass="is-invalid"
+                           class="form-control">
+                    <div id="firstNameInputFeedback" class="invalid-feedback" th:errors="*{firstName}"></div>
+                </div>
+            </div>
+
+            <div class="mb-3 row">
+                <label for="lastNameInput" class="col-sm-2 col-form-label">Фамилия</label>
+                <div class="col-sm-10">
+                    <input type="text"
+                           name="lastName"
+                           id="lastNameInput"
+                           th:value="*{lastName}"
+                           th:errorclass="is-invalid"
+                           class="form-control">
+                    <div id="lastNameInputFeedback" class="invalid-feedback" th:errors="*{lastName}"></div>
+                </div>
+            </div>
+
+            <div class="mb-3 row">
+                <label for="profilePictureInput" class="col-sm-2 col-form-label">Профилна снимка</label>
+                <input type="file" name="image" class="form-control" id="profilePictureInput">
+            </div>
+
+            <div class="mb-3 row text-start" sec:authorize="hasRole('ROLE_MODERATOR')">
+                <div th:each="role : ${roles}">
+                    <input type="radio"
+                           class="btn-check"
+                           th:id="${role}"
+                           name="highestRole"
+                           th:value="${role}"
+                           th:field="*{highestRole}">
+                    <label th:for="${role}" th:text="${role}" class="btn btn-outline-secondary m-2"></label>
+                </div>
+
+            </div>
+
+            <button type="submit" class="btn btn-primary">Запази</button>
+
+        </form>
+    </div>
+</main>
+<th:block th:include="~{fragments/footer}"/>
+</body>
+</html>

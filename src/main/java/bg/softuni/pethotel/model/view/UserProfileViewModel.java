@@ -3,6 +3,7 @@ package bg.softuni.pethotel.model.view;
 import java.util.Set;
 
 public class UserProfileViewModel {
+    private Long id;
     private String email;
     private String firstName;
     private String lastName;
@@ -10,6 +11,15 @@ public class UserProfileViewModel {
     private Set<AnimalViewModel> animalViewModels;
 
     public UserProfileViewModel() {
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public UserProfileViewModel setId(Long id) {
+        this.id = id;
+        return this;
     }
 
     public String getEmail() {

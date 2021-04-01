@@ -34,8 +34,10 @@
                             <ul class="dropdown-menu">
                                 <li><a class="dropdown-item" th:href="@{/comments/pending}">Чакащи коментари</a></li>
                                 <li><a class="dropdown-item" th:href="@{/comments/archived}">Архивирани коментари</a></li>
-                                <li><hr class="dropdown-divider"></li>
-                                <li sec:authorize="hasRole('ROLE_ADMIN')"><a class="dropdown-item" href="#">Потребители</a></li>
+                                <th:block sec:authorize="hasRole('ROLE_ADMIN')">
+                                    <li><hr class="dropdown-divider"></li>
+                                    <li><a class="dropdown-item" th:href="@{#}">Потребители</a></li>
+                                </th:block>
                             </ul>
                         </div>
                     </th:block>

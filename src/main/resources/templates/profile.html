@@ -23,7 +23,7 @@
 
         <ul class="list-group m-1">
             <li class="list-group-item"><a th:href="@{/animals/register}" class="text-decoration-none">Регистрирай домашен любимец</a></li>
-            <li class="list-group-item"><a th:href="@{#}" class="text-decoration-none">Редактирай профила си</a></li>
+            <li class="list-group-item"><a th:href="@{/profile/edit/{id}(id = *{id})}" class="text-decoration-none">Редактирай профила си</a></li>
         </ul>
     </div>
 
