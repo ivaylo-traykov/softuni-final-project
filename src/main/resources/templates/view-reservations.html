@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <th:block th:include="~{fragments/head}"/>
+    <title>Хотел за домашни любимци - Косматковци</title>
+</head>
+<body>
+<header>
+    <th:block th:include="~{fragments/nav}"/>
+</header>
+
+<main>
+    <div class="container col-lg-8 col-md-10 col-sm-12">
+        <div class="row">
+
+            <div class="col-lg-4 col-md-4 col-sm-6 col-12" th:each="r : ${reservations}">
+                <h5 th:text="|Очакваме ${r.animalName}!|"></h5>
+                <p th:text="|От: ${r.startDate}|"></p>
+                <p th:text="|До: ${r.endDate}|"></p>
+                <p th:unless="${r.ownFood}">Храната ще бъде осигурена от хотела</p>
+                <p th:if="${r.ownFood}">Храна ще бъде осигурена от стопанина при настаняване</p>
+
+                <th:block th:if="${r.animalType.name() == 'CAT'}">
+                    <p th:unless="${r.ownToilet}">Котешка тоалетна ще бъде осигурена от хотела</p>
+                    <p th:if="${r.ownToilet}">Котешка тоалетна ще бъде осигурена от стопанина при настаняване</p>
+                </th:block>
+
+                <th:block th:if="${r.animalType.name() == 'DOG'}">
+                    <p th:if="${r.suiteType}"
+                       th:text="|Настаняването ще е ${r.suiteType.displayLabel.toLowerCase()}|"></p>
+                    <p th:if="${r.walkType}"
+                       th:text="|Ежадневната разходка ще бъде ${r.walkType.displayLabel.toLowerCase()}|"></p>
+                </th:block>
+
+                <a th:href="@{/reservation/delete/{id}(id = ${r.id})}" class="btn btn-warning">Откажи</a>
+            </div>
+        </div>
+    </div>
+</main>
+<th:block th:include="~{fragments/footer}"/>
+</body>
+</html>

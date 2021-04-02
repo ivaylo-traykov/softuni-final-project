@@ -6,16 +6,19 @@ import bg.softuni.pethotel.model.enums.RoleNameEnum;
 import bg.softuni.pethotel.model.service.UserEditServiceModel;
 import bg.softuni.pethotel.model.service.UserRegisterServiceModel;
 import bg.softuni.pethotel.model.view.AnimalViewModel;
+import bg.softuni.pethotel.model.view.ReservationViewModel;
 import bg.softuni.pethotel.model.view.UserListViewModel;
 import bg.softuni.pethotel.model.view.UserProfileViewModel;
 import bg.softuni.pethotel.repository.UserRepository;
 import bg.softuni.pethotel.service.CloudinaryService;
+import bg.softuni.pethotel.service.ReservationService;
 import bg.softuni.pethotel.service.RoleService;
 import bg.softuni.pethotel.service.UserService;
 import org.modelmapper.ModelMapper;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.SpringSecurityCoreVersion;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -24,10 +27,9 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.transaction.Transactional;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
@@ -44,7 +46,8 @@ public class UserServiceImpl implements UserService {
                            ModelMapper modelMapper,
                            PasswordEncoder passwordEncoder,
                            RoleService roleService,
-                           ApplicationUserService applicationUserService, CloudinaryService cloudinaryService) {
+                           ApplicationUserService applicationUserService,
+                           CloudinaryService cloudinaryService) {
         this.userRepository = userRepository;
         this.modelMapper = modelMapper;
         this.passwordEncoder = passwordEncoder;
@@ -258,5 +261,34 @@ public class UserServiceImpl implements UserService {
         }
 
         return new ArrayList<>();
+    }
+
+    @Override
+    public Set<AnimalViewModel> getListOfAnimals(String email) {
+        UserEntity user = userRepository.findByEmail(email)
+                .orElseThrow(() -> new NoSuchElementException("Няма такъв потребител"));
+
+        return user.getAnimals().stream()
+                .map(a -> {
+                    AnimalViewModel animalViewModel = modelMapper.map(a, AnimalViewModel.class);
+                    animalViewModel.setAnimalType(a.getAnimalType().displayLabel);
+                    return animalViewModel;
+                })
+                .collect(Collectors.toSet());
+    }
+
+    @Override
+    @Transactional
+    public List<ReservationViewModel> findAllReservations(String email) {
+        UserEntity user = findByEmail(email);
+
+        return user.getReservations().stream()
+                .map(r -> {
+                    ReservationViewModel newReservation = modelMapper.map(r, ReservationViewModel.class);
+                    newReservation.setAnimalName(r.getAnimal().getName());
+                    newReservation.setAnimalType(r.getAnimal().getAnimalType());
+                    return newReservation;
+                })
+                .collect(Collectors.toList());
     }
 }

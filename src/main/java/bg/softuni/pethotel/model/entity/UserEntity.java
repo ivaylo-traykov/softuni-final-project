@@ -1,10 +1,7 @@
 package bg.softuni.pethotel.model.entity;
 
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 @Entity
 @Table(name = "users")
@@ -14,8 +11,9 @@ public class UserEntity extends BaseEntity {
     private String lastName;
     private String password;
     private String imageUrl;
-    private Set<AnimalEntity> animals = new HashSet<>();
+    private Set<AnimalEntity> animals = new TreeSet<>();
     private List<RoleEntity> roles = new ArrayList<>();
+    List<ReservationEntity> reservations = new ArrayList<>();
 
     public UserEntity() {
     }
@@ -97,6 +95,16 @@ public class UserEntity extends BaseEntity {
 
     public UserEntity addRole(RoleEntity role) {
         this.roles.add(role);
+        return this;
+    }
+
+    @OneToMany(mappedBy = "owner")
+    public List<ReservationEntity> getReservations() {
+        return reservations;
+    }
+
+    public UserEntity setReservations(List<ReservationEntity> reservations) {
+        this.reservations = reservations;
         return this;
     }
 }

@@ -19,8 +19,8 @@
                     <a class="nav-link" th:href="@{/gallery}">Галерия</a>
 
                     <th:block sec:authorize="isAuthenticated()">
-                        <a class="nav-link" th:href="@{#}">Нова резервация</a>
-                        <a class="nav-link" th:href="@{#}">Направени резервации</a>
+                        <a class="nav-link" th:href="@{/reservation}">Нова резервация</a>
+                        <a class="nav-link" th:href="@{/reservation/all}">Направени резервации</a>
                         <a class="nav-link" th:href="@{/profile}">Профил</a>
                         <a class="nav-link" th:href="@{/comments}">Книга за гости</a>
                         <form th:action="@{/users/logout}" method="POST"><button type="submit" class="nav-link border-0 bg-light">Изход</button></form>

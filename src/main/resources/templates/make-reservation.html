@@ -8,32 +8,22 @@
 <header>
     <th:block th:include="~{fragments/nav}"/>
 </header>
-
-<main th:object="${user}">
-    <div class="container d-flex flex-wrap justify-content-around align-items-center">
-        <div class="m-1 pet-hotel-profile-picture">
-            <img th:src="*{getImageUrl()}" alt="" class="img-thumbnail"/>
-        </div>
-
-        <div class="m-1">
-            <p th:text="|Име: *{firstName}|"></p>
-            <p th:text="|Фамилия: *{lastName}|"></p>
-            <p th:text="|email адрес: *{email}|"></p>
-        </div>
-
-        <ul class="list-group m-1">
-            <li class="list-group-item"><a th:href="@{/animals/register}" class="text-decoration-none">Регистрирай домашен любимец</a></li>
-            <li class="list-group-item"><a th:href="@{/profile/edit/{id}(id = *{id})}" class="text-decoration-none">Редактирай профила си</a></li>
-        </ul>
-    </div>
-
+<main th:object="${animals}">
     <div class="my-4 d-flex flex-wrap justify-content-around align-items-center">
-        <h5 th:if="*{getAnimals().size() == 0}">Нямате регистрирани любимци</h5>
-        <h5 th:if="*{getAnimals().size() > 0}">Вашите любимци</h5>
+        <th:block th:if="${animals.size() == 0}">
+            <div class="container text-center">
+                <h5 class="d-block">Нямате регистрирани любимци</h5>
+                <a th:href="@{/animals/register}" class="d-block m-5 text-decoration-none">
+                    <button type="button" class="btn btn-primary">Регистрирай домашен любимец</button>
+                </a>
+            </div>
+        </th:block>
+
+        <h5 th:if="${animals.size() > 0}">За кой от вашите любимци желаете да направите резервация?</h5>
     </div>
 
-    <div class="row d-flex flex-wrap justify-content-around align-items-center my-4">
-        <div class="col-lg-3 col-md-4 col-sm-6 col-12" th:each="a : *{getAnimals()}">
+    <div class="d-flex flex-wrap justify-content-around align-items-center my-4">
+        <div class="col-lg-3 col-md-4 col-sm-6 col-12" th:each="a : ${animals}">
             <div class="card mx-3 mb-2 box-shadow ">
                 <img th:src="@{${a.imageUrl}}" class="card-img-top rounded-3" alt="Thumbnail [100%x225]"
                      data-holder-rendered="true"
@@ -43,7 +33,8 @@
                         <p class="card-text border-bottom" th:text="|${a.animalType}: ${a.name}|"></p>
                         <p class="card-text border-bottom" th:text="|${a.gender.displayLabel}|"></p>
                         <p class="card-text border-bottom" th:text="|Порода: ${a.breed}|"></p>
-                        <p class="card-text border-bottom" th:text="|Размер: ${a.size.displayLabel}|" th:if="${a.animalType eq types.get('DOG')}"></p>
+                        <p class="card-text border-bottom" th:text="|Размер: ${a.size.displayLabel}|"
+                           th:if="${a.animalType eq types.get('DOG')}"></p>
                         <th:block th:switch="${a.castrated}">
                             <p class="card-text border-bottom" th:case="true">Кастрирано</p>
                             <p class="card-text border-bottom" th:case="false">Некастрирано</p>
@@ -59,7 +50,6 @@
             </div>
         </div>
     </div>
-
 </main>
 
 <th:block th:include="~{fragments/footer}"/>

@@ -1,0 +1,139 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <th:block th:include="~{fragments/head}"/>
+    <title>Хотел за домашни любимци - Косматковци</title>
+</head>
+<body>
+<header>
+    <th:block th:include="~{fragments/nav}"/>
+</header>
+
+<main>
+    <div class="container col-lg-8 col-md-10 col-sm-12 m-auto pet-hotel-custom-font-family">
+
+        <form th:action="@{/reservation/new/{id}(id = ${id})}" method="post" class="p-3" th:object="${reservation}">
+
+            <div class="row mb-5">
+                <h5>Изберете начална и крайна дата на престоя</h5>
+
+                <div class="col-md-6 col-sm-12">
+                    <label for="reservationStartDate">Начална дата</label>
+                    <input type="date"
+                           name="startDate"
+                           id="reservationStartDate"
+                           class="form-control"
+                           th:errorclass="is-invalid"
+                           th:value="*{startDate}"
+                           required>
+                    <small class="invalid-feedback" th:errors="*{startDate}"></small>
+                </div>
+
+                <div class="col-md-6 col-sm-12">
+                    <label for="reservationEndDate">Крайна дата</label>
+                    <input type="date"
+                           name="endDate"
+                           id="reservationEndDate"
+                           class="form-control"
+                           th:errorclass="is-invalid"
+                           th:value="*{endDate}"
+                           required>
+                    <small class="invalid-feedback" th:errors="*{endDate}"></small>
+                </div>
+            </div>
+
+
+            <div class="row mb-5">
+                <h5>Желаете ли хотела да осигурни храна за престоя?</h5>
+                <div class="form-check">
+                    <input type="radio"
+                           name="ownFood"
+                           id="ownFoodFalse"
+                           value="false"
+                           class="form-check-input"
+                           required>
+                    <label for="ownFoodFalse" class="form-check-label">Да</label>
+                </div>
+
+                <div class="form-check">
+                    <input type="radio"
+                           name="ownFood"
+                           id="ownFoodTrue"
+                           value="true"
+                           class="form-check-input">
+                    <label for="ownFoodTrue" class="form-check-label">Не, ще осигуря собствена храна за престоя</label>
+                </div>
+            </div>
+
+
+            <div class="row mb-5" th:if="${animalType eq 'CAT'}">
+                <h5>Желаете ли хотела да осигурни котешка тоалетна за престоя?</h5>
+                <div class="form-check">
+                    <input type="radio"
+                           name="ownToilet"
+                           id="ownToiletFalse"
+                           value="false"
+                           class="form-check-input"
+                           required>
+                    <label for="ownToiletFalse" class="form-check-label">Да</label>
+                </div>
+                <div class="form-check">
+                    <input type="radio"
+                           name="ownToilet"
+                           id="ownToiletTrue"
+                           value="true" class="form-check-input">
+                    <label for="ownToiletTrue" class="form-check-label">Не, ще осигуря собствена тоалетна за
+                        престоя</label>
+                </div>
+            </div>
+
+            <div class="row mb-5" th:if="${animalType eq 'DOG'}">
+
+                <div class="col-md-6 col-sm-12">
+                    <div class="row mb-5">
+                        <h5>Къде желаете да бъде настанено вашето куче?<span class="text-danger">*</span></h5>
+                        <div class="form-check"
+                             th:each="suit: ${suiteTypes}">
+                            <input type="radio"
+                                   name="suiteType"
+                                   th:id="${suit}"
+                                   th:value="${suit}"
+                                   class="form-check-input"
+                                   th:errorclass="is-invalid"
+                                   th:field="*{suiteType}"
+                                   required>
+                            <label th:for="${suit}" class="form-check-label" th:text="${suit.displayLabel}"></label>
+                        </div>
+                        <small class="invalid-feedback" th:errors="*{suiteType}"></small>
+                    </div>
+                </div>
+
+                <div class="col-md-6 col-sm-12">
+                    <div class="row mb-5">
+                        <h5>Каква разходка бихте искали да получава вашето куче?<span class="text-danger">*</span></h5>
+                        <div class="form-check"
+                             th:each="walk: ${walkTypes}">
+                            <input type="radio"
+                                   name="walkType"
+                                   th:id="${walk}"
+                                   th:value="${walk}"
+                                   class="form-check-input"
+                                   th:errorclass="is-invalid"
+                                   th:field="*{walkType}"
+                                   required>
+                            <label th:for="${walk}" class="form-check-label" th:text="${walk.displayLabel}"></label>
+                        </div>
+                        <small class="invalid-feedback" th:errors="*{walkType}"></small>
+                    </div>
+                </div>
+            </div>
+
+            <input type="submit" class="btn btn-primary" value="Запази">
+
+        </form>
+    </div>
+</main>
+
+<th:block th:include="~{fragments/footer}"/>
+</body>
+</html>

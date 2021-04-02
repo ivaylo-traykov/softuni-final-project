@@ -5,7 +5,7 @@ import java.time.Instant;
 
 @MappedSuperclass
 public abstract class BaseEntity {
-    private Long id;
+    protected Long id;
     private Instant created;
     private Instant modified;
 

@@ -4,6 +4,7 @@ import bg.softuni.pethotel.model.binding.AnimalRegisterBindingModel;
 import bg.softuni.pethotel.model.entity.AnimalEntity;
 import bg.softuni.pethotel.model.entity.CatEntity;
 import bg.softuni.pethotel.model.entity.DogEntity;
+import bg.softuni.pethotel.model.enums.AnimalTypeEnum;
 import bg.softuni.pethotel.repository.AnimalRepository;
 import bg.softuni.pethotel.service.AnimalService;
 import bg.softuni.pethotel.service.CloudinaryService;
@@ -13,6 +14,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.util.NoSuchElementException;
+import java.util.Optional;
 
 @Service
 public class AnimalServiceImpl implements AnimalService {
@@ -64,5 +67,17 @@ public class AnimalServiceImpl implements AnimalService {
         pet.setOwner(userService.findByEmail(owner));
 
         animalRepository.save(pet);
+    }
+
+    @Override
+    public AnimalTypeEnum findAnimalType(Long id) {
+        AnimalEntity animal = findById(id);
+        return animal.getAnimalType();
+    }
+
+    @Override
+    public AnimalEntity findById(Long id) {
+        return animalRepository.findById(id)
+                .orElseThrow(() -> new NoSuchElementException("Не е намерено животно с id " + id));
     }
 }
