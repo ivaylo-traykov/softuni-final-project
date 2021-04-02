@@ -1,0 +1,21 @@
+logging:
+    level:
+        org:
+            hibernate:
+                SQL: DEBUG
+                type:
+                    descriptor:
+                        sql:
+                            BasicBinder: TRACE
+            springframework:
+                security: DEBUG
+spring:
+#    datasource:
+#        driver-class-name: org.hsqldb.jdbc.JDBCDriver
+#        password: ''
+#        url: jdbc:hsqldb:mem:testdb;DB_CLOSE_DELAY=-1
+#        username: sa
+    jpa:
+        hibernate:
+            ddl-auto: create
+        open-in-view: false
