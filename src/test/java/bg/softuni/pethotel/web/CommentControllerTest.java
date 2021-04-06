@@ -2,12 +2,13 @@ package bg.softuni.pethotel.web;
 
 import bg.softuni.pethotel.model.entity.CommentEntity;
 import bg.softuni.pethotel.repository.CommentRepository;
-import org.junit.Before;
-import org.junit.Test;
 import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
@@ -27,7 +28,7 @@ public class CommentControllerTest {
     private final String TEST_COMMENT1_DESCRIPTION = "Test1";
     private final String TEST_COMMENT2_DESCRIPTION = "Test2";
 
-    @Before
+    @BeforeEach
     public void setUp() {
         commentRepository.deleteAll();
         CommentEntity comment1 = new CommentEntity();
@@ -47,6 +48,7 @@ public class CommentControllerTest {
         commentRepository.deleteAll();
     }
 
+    @WithMockUser(username = "pesho", roles = {"ADMIN"})
     @Test
     public void testCommentsGetReturnsCorrectStatus() throws Exception {
         this.mockMvc.perform(get("/comments/pages?page=0"))

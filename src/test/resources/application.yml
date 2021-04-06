@@ -10,12 +10,13 @@ logging:
             springframework:
                 security: DEBUG
 spring:
-    datasource:
-        driver-class-name: org.hsqldb.jdbc.JDBCDriver
-        url: jdbc:hsqldb:mem:testdb;DB_CLOSE_DELAY=-1
-        username: sa
-        password: ''
     jpa:
         hibernate:
-            ddl-auto: create
+            ddl-auto: create-drop
         open-in-view: false
+        database-platform: org.hibernate.dialect.H2Dialect
+
+cloudinary:
+    cloud-name: itraykov
+    api-key: test
+    api-secret: test
