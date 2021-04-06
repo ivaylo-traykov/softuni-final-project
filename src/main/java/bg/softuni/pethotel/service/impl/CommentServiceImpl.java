@@ -119,7 +119,8 @@ public class CommentServiceImpl implements CommentService {
     }
 
     private void changeCommentStatus(Long id, CommentStatusEnum status) {
-        CommentEntity comment = commentRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("Comment not found"));
+        CommentEntity comment = commentRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("Comment not found"));
         comment.setStatus(status);
         commentRepository.save(comment);
     }
