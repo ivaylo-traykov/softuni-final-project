@@ -7,5 +7,5 @@ import java.util.Optional;
 public interface RoleService {
     void seedRoles();
 
-    Optional<RoleEntity> findRoleByName(RoleNameEnum name);
+    RoleEntity findRoleByName(RoleNameEnum name);
 }

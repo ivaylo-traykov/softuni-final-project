@@ -32,7 +32,8 @@ public class RoleServiceImpl implements RoleService {
     }
 
     @Override
-    public Optional<RoleEntity> findRoleByName(RoleNameEnum name) {
-        return roleRepository.findByName(name);
+    public RoleEntity findRoleByName(RoleNameEnum name) {
+        return roleRepository.findByName(name)
+                .orElseThrow(() -> new IllegalArgumentException(name.toString() + " role not found"));
     }
 }

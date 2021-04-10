@@ -108,7 +108,7 @@ public class UserServiceImpl implements UserService {
     }
 
     private RoleEntity findRole(RoleNameEnum role) {
-        return roleService.findRoleByName(role).orElseThrow(() -> new IllegalArgumentException(role.toString() + " role not found"));
+        return roleService.findRoleByName(role);
     }
 
     @Override
