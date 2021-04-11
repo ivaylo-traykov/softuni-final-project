@@ -30,9 +30,9 @@ public interface UserService {
 
     void updateUser(UserEditServiceModel userEditServiceModel, Long id) throws IOException;
 
-    boolean isOwnerOrModerator(Long id, UserDetails principal);
+    boolean isOwnerOrAdmin(Long id, UserDetails principal);
 
-    boolean isModerator(Collection<? extends GrantedAuthority> authorities);
+    boolean isAdmin(Collection<? extends GrantedAuthority> authorities);
 
     List<UserListViewModel> getFilteredUsersList(String keyword);
 

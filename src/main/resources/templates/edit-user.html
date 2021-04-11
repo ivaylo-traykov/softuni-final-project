@@ -52,7 +52,7 @@
                 <input type="file" name="image" class="form-control" id="profilePictureInput">
             </div>
 
-            <div class="mb-3 row text-start" sec:authorize="hasRole('ROLE_MODERATOR')">
+            <div class="mb-3 row text-start" sec:authorize="hasRole('ROLE_ADMIN')">
                 <div th:each="role : ${roles}">
                     <input type="radio"
                            class="btn-check"

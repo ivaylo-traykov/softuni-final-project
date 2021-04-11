@@ -52,7 +52,7 @@ public class ProfileController {
                            Model model,
                            @AuthenticationPrincipal UserDetails principal) throws IllegalAccessException {
 
-        if (!userService.isOwnerOrModerator(id, principal)) {
+        if (!userService.isOwnerOrAdmin(id, principal)) {
             throw new IllegalAccessException("Тази страница не е достъпна");
         }
 
@@ -61,7 +61,7 @@ public class ProfileController {
             model.addAttribute("editUser", user);
         }
 
-        if (userService.isModerator(principal.getAuthorities())) {
+        if (userService.isAdmin(principal.getAuthorities())) {
             model.addAttribute("roles", RoleNameEnum.values());
         }
 
@@ -80,7 +80,7 @@ public class ProfileController {
             return "redirect:/profile/edit/" + id.toString();
         }
 
-        if (!userService.isOwnerOrModerator(id, principal)) {
+        if (!userService.isOwnerOrAdmin(id, principal)) {
             throw new IllegalAccessException("Тази страница не е достъпна");
         }
 

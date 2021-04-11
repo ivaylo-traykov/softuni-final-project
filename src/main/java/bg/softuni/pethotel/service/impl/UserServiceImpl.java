@@ -11,14 +11,12 @@ import bg.softuni.pethotel.model.view.UserListViewModel;
 import bg.softuni.pethotel.model.view.UserProfileViewModel;
 import bg.softuni.pethotel.repository.UserRepository;
 import bg.softuni.pethotel.service.CloudinaryService;
-import bg.softuni.pethotel.service.ReservationService;
 import bg.softuni.pethotel.service.RoleService;
 import bg.softuni.pethotel.service.UserService;
 import org.modelmapper.ModelMapper;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.SpringSecurityCoreVersion;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -231,17 +229,17 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public boolean isOwnerOrModerator(Long id, UserDetails principal) {
+    public boolean isOwnerOrAdmin(Long id, UserDetails principal) {
         UserEntity user = userRepository.findByEmail(principal.getUsername())
                 .orElseThrow(() -> new UsernameNotFoundException("No such user"));
 
-        return id.equals(user.getId()) || isModerator(principal.getAuthorities());
+        return id.equals(user.getId()) || isAdmin(principal.getAuthorities());
     }
 
     @Override
-    public boolean isModerator(Collection<? extends GrantedAuthority> authorities) {
-        GrantedAuthority moderator = new SimpleGrantedAuthority("ROLE_MODERATOR");
-        return authorities.contains(moderator);
+    public boolean isAdmin(Collection<? extends GrantedAuthority> authorities) {
+        GrantedAuthority admin = new SimpleGrantedAuthority("ROLE_ADMIN");
+        return authorities.contains(admin);
     }
 
     @Override
